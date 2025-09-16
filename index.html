@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image2motion</title>
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <div class="header">
+        img2motion
+    </div>
+    <div class="appcontainer">
+
+        <div class="controls">
+
+            <div class="title">
+                Image to Video
+            </div>
+            <div class="tooltip">
+                img2video only accepts jpg and png filetypes
+            </div>
+
+            <div class="folderselect">
+                
+                <div class="folderbutton" id="inputfolder">
+                    <span class="material-symbols-outlined">
+                        upload_file
+                    </span>
+                    <div class="foldertext">
+                        Input Files
+                    </div>
+                    <input type="file" id="imageselect" accept="image/*" multiple hidden="true">                    
+                </div>
+
+                <div class="folderbutton" id="outputfolder">
+                    <span class="material-symbols-outlined">
+                        folder
+                    </span>
+                    <div class="foldertext">
+                        Output Folder
+                    </div>                    
+                </div>
+
+            </div>
+
+            <textarea id="promptinput" name="promptinput" rows="3" cols="20" placeholder="Type prompt..." class="promptinput"></textarea>
+            
+            <div class="generatebutton" id="generatebutton">
+                Generate
+            </div>
+
+            <div class="title"><span id="imagecount">0</span> images selected</div>
+        </div>
+
+        <div class="controls">
+            <div class="title">API Key</div>
+            <div class="tooltip">Use the API Key generated with your RunWayML account</div>
+            <input type="password" name="keyinput" id="keyinput"  placeholder="Enter API key here">
+        </div>
+
+
+
+    </div>
+
+    <!-- JavaScript -->
+     <script src="/script.js"></script>
+</body>
+</html>

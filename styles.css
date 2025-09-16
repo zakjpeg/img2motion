@@ -1,0 +1,123 @@
+:root {
+    --bg: #101828;
+    --bg2: #1E2939;
+    --primary: #615FFF;
+    --secondary: #514fe9;
+    --tertiary: #29ba43;
+    --strong: #FFFFFF;
+    --light: #9199A7;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+}
+
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
+    resize: vertical;
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+}
+
+input {
+    width: 100%;
+}
+
+.header {
+    color: var(--strong);
+    justify-self: center;
+    align-self: center;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.appcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80svh;
+    margin-top: 50px;
+}
+
+.controls {
+    background-color: var(--bg2);
+    border-radius: 10px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.title {
+    color: var(--strong);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.folderselect {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.folderbutton {
+    background-color: var(--primary);
+    color: var(--strong);
+    width: 150px;
+    height: 100px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition-duration: 150ms; 
+}
+
+
+.folderbutton > .material-symbols-outlined {
+   margin-bottom: 10px;
+}
+
+
+
+.tooltip {
+    color: var(--light);
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+}
+
+.generatebutton {
+    background-color: var(--tertiary);
+    color: var(--strong);
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition-duration: 150ms;
+}
+
+.generatebutton:hover, .folderbutton:hover {
+    filter: brightness(0.9);
+}
+
+.promptinput {
+    width: 96%;
+}
