@@ -5,6 +5,7 @@ let inpPrompt = document.getElementById("promptinput");
 let btnGenerate = document.getElementById("generatebutton");
 let inpApiKey = document.getElementById("keyinput");
 let disImageCount = document.getElementById("imagecount");
+let inpSecondCount = document.getElementById("secondsinput");
 
 let imgList = false;
 let dataURIs = false;
@@ -21,22 +22,38 @@ btnInputFolder.addEventListener('click', async () => {
 })
 
 btnImageSelect.addEventListener('change', async (event) => {
+
     // update file count
     imgList = event.target.files;
     imgCount = imgList.length;
-    disImageCount.innerHTML = imgCount;
+    disImageCount.innerHTML = imgCount + " " + ((imgCount > 1) ? "images" : "image");
+    document.getElementById("countertext").classList.remove("hidden");
+
+    // Update preview
+    clearImagePreviews();
 
     // Collect dataURIs
     dataURIs = [];
+    var iter = 4;
     Array.from(imgList).forEach((file) => {
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = async (e) => {
             dataURIs.push(e.target.result); // this is the data URI string
+            if (iter > 1) {
+                newImagePreview(e.target.result, 0);
+                iter = iter - 1;
+            } else if (iter == 1) {
+                newImagePreview(e.target.result, imgCount - 4);
+                iter = iter - 1;
+            }
+
         };
         reader.readAsDataURL(file);
+        
     });
 
     console.log("dataURIs:", dataURIs);
+
 })
 
 btnOutputFolder.addEventListener('click', async () => {
@@ -49,6 +66,7 @@ btnGenerate.addEventListener('click', async () => {
 
     const promptText = inpPrompt.value;
     const apiKey = inpApiKey.value;
+    const secondsInput = inpSecondCount.value;
 
     // Check for missing info
     if (!imgList) {
@@ -63,6 +81,10 @@ btnGenerate.addEventListener('click', async () => {
         alert("Please enter a prompt");
         return;
     }
+    if (secondsInput < 1 || secondsInput > 50) {
+        alert("Please use a video length between 1 and 50 seconds");
+        return;
+    }
     if (!apiKey) {
         alert("Please enter your RunwayML API Key");
         return;
@@ -71,6 +93,7 @@ btnGenerate.addEventListener('click', async () => {
     console.log("image list:", imgList);
     console.log("output folder:", outputFolder.name);
     console.log("prompt:", promptText);
+    console.log("length:", secondsInput);
     console.log("api key:", apiKey);
 
 
@@ -123,4 +146,33 @@ async function getFileDirectory() {
     } catch (err) {
         console.log(err);
     }
+}
+
+
+// Function: newAccountComponent
+// Purpose: Creates/Inserts a card with an argued name to your charts
+// Input: String representing account name
+// Output: None
+//
+function newImagePreview(imgUrl, remainCount) {
+    const img = document.createElement('img');
+    img.classList.add("imgpreview");
+    img.src = imgUrl;
+
+    document.getElementById("previewcollection").appendChild(img);
+
+    if (remainCount > 0) {
+        const div = document.createElement('div');
+        div.classList.add("remainingcount");
+        div.innerHTML = `+${remainCount} more`;
+        document.getElementById("previewcollection").appendChild(div);
+    }
+}
+
+// Function: clearImagePreviews
+// Purpose: Clears the image previews
+// input: none
+// output: none
+function clearImagePreviews() {
+    document.getElementById("previewcollection").innerHTML = "";
 }

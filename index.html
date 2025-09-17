@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="header">
-        img2motion
+        Batch Video Generator
     </div>
     <div class="appcontainer">
 
@@ -21,7 +21,7 @@
                 Image to Video
             </div>
             <div class="tooltip">
-                img2video only accepts jpg and png filetypes
+                Convert batch images into animated video
             </div>
 
             <div class="folderselect">
@@ -47,13 +47,22 @@
 
             </div>
 
+            <div class="title hidden" id="countertext"><span id="imagecount">0</span> selected</div>
+            
+            <div class="previewcollection" id="previewcollection"></div>
+
+
             <textarea id="promptinput" name="promptinput" rows="3" cols="20" placeholder="Type prompt..." class="promptinput"></textarea>
             
-            <div class="generatebutton" id="generatebutton">
-                Generate
+
+            <div class="generatecontainer">
+                <div class="generatebutton" id="generatebutton">
+                    Generate
+                </div>
+                <input type="number" value="5" class="secondsinput" id="secondsinput">
             </div>
 
-            <div class="title"><span id="imagecount">0</span> images selected</div>
+
         </div>
 
         <div class="controls">
