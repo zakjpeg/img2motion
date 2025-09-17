@@ -61,7 +61,6 @@ export default async function handler(req, res) {
             }
         );
     } catch (err) {
-        console.log("OOPSY");
         console.log(err);
     }
     
