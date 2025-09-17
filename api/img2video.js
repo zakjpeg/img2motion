@@ -39,7 +39,7 @@ export default async function handler(req, res) {
             {
                 method: "POST",
                 headers: {
-                "Authorization": `Bearer ${apikey}`,
+                "Authorization": `Bearer ${apiKey}`,
                 "X-Runway-Version": "2024-11-06",
                 "Content-Type": "application/json",
                 },
@@ -65,8 +65,6 @@ export default async function handler(req, res) {
         console.log(err);
     }
     
-
-
     // Respond by reiterating the received data
     res.setHeader("Access-Control-Allow-Origin", "*");
     return res.status(200).json({
