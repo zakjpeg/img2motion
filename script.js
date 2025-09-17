@@ -96,10 +96,41 @@ btnGenerate.addEventListener('click', async () => {
     console.log("length:", secondsInput);
     console.log("api key:", apiKey);
 
+    for (const URI of dataURIs) {
+        try {
+            
+            const result = await fetch(
+                "134.199.180.114/img2video",
+                {
+                    method: "POST",
+                    headers: {
+                    "Authorization": `Bearer ${apiKey}`,
+                    "X-Runway-Version": "2024-11-06",
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        "promptImage": URI,
+                        "seed": 4294967295,
+                        "model": "gen4_turbo",
+                        "promptText": promptText,
+                        "duration": 5,
+                        "ratio": "720:1280",
+                        "contentModeration": {
+                            "publicFigureThreshold": "auto"
+                        }
+                    })
+                }
+            ).then(res => res.json());
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     // Loop through every image
     for (const URI of dataURIs) {
 
+        /*
         try {
             // RunwayML API Request
             const result = await fetch(
@@ -129,6 +160,7 @@ btnGenerate.addEventListener('click', async () => {
         } catch (err) {
             console.error(err);
         }
+        */
     } // End Loop
 
 
