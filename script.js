@@ -66,7 +66,7 @@ btnGenerate.addEventListener('click', async () => {
 
     const promptText = inpPrompt.value;
     const apiKey = inpApiKey.value;
-    const secondsInput = inpSecondCount.value;
+    const secondsInput = parseInt(inpSecondCount.value, 10);
 
     // Check for missing info
     if (!imgList) {
