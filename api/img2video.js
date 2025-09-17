@@ -1,63 +1,41 @@
 export const config = {
   api: {
-    bodyParser: true, // make sure JSON bodies are parsed
+    bodyParser: true, // parse JSON bodies
   },
 };
 
 export default async function handler(req, res) {
+  // Handle preflight first
+  if (req.method === "OPTIONS") {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization, X-Runway-Version"
+    );
+    return res.status(200).end();
+  }
+
+  // Only allow POST
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  // Optional: CORS preflight
-  if (req.method === "OPTIONS") {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Runway-Version");
-    return res.status(200).end();
-  }
-
   try {
-    console.log("got a request...");
     const body = req.body;
 
-    // Extract the API key from the frontend request
-    const apiKey = body.apiKey;
-    const promptImage = body.promptImage;
-    const promptText = body.promptText;
-    const duration = body.duration;
-    const ratio = body.ratio;
-    if (!apiKey) return res.status(400).json({ error: "Missing API key" });
+    // Optional: log for debugging
+    console.log("Received body:", body);
 
-    // Forward request to RunwayML
-    const response = await fetch(
-        "https://api.dev.runwayml.com/v1/image_to_video",
-        {
-            method: "POST",
-            headers: {
-            "Authorization": `Bearer ${apiKey}`,
-            "X-Runway-Version": "2024-11-06",
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-            "promptImage": promptImage,
-            "seed": 4294967295,
-            "model": "gen4_turbo",
-            "promptText": promptText,
-            "duration": duration,
-            "ratio": ratio,
-            "contentModeration": {
-                "publicFigureThreshold": "auto"
-            }
-            }),
-        },
-        )
+    // Simple validation
+    if (!body) return res.status(400).json({ error: "No data received" });
 
-    const data = await response.json();
-
+    // Respond by reiterating the received data
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.status(response.status).json(data);
-
+    return res.status(200).json({
+      message: "Data received successfully",
+      receivedData: body,
+    });
   } catch (err) {
     console.error("Serverless function error:", err);
     res.status(500).json({ error: "Server error" });
