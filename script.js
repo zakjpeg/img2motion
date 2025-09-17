@@ -100,7 +100,7 @@ btnGenerate.addEventListener('click', async () => {
         try {
             
             const result = await fetch(
-                "http://134.199.180.114:5500/img2video",
+                "/api/img2video",
                 {
                     method: "POST",
                     headers: {
