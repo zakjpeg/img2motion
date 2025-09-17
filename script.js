@@ -103,18 +103,15 @@ btnGenerate.addEventListener('click', async () => {
                 "/api/img2video",
                 {
                     method: "POST",
-                    headers: {
-                    "Authorization": `Bearer ${apiKey}`,
-                    "X-Runway-Version": "2024-11-06",
-                    "Content-Type": "application/json",
-                    },
+                    headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
                         "promptImage": URI,
                         "seed": 4294967295,
                         "model": "gen4_turbo",
                         "promptText": promptText,
-                        "duration": 5,
+                        "duration": secondsInput,
                         "ratio": "720:1280",
+                        "apiKey": apiKey,
                         "contentModeration": {
                             "publicFigureThreshold": "auto"
                         }
