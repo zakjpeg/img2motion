@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     if (!apiKey) return res.status(400).json({ error: "Missing API key" });
 
     // Forward request to RunwayML
-    const result = await fetch(
+    const response = await fetch(
         "https://api.dev.runwayml.com/v1/image_to_video",
         {
             method: "POST",
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
             }
             }),
         },
-        ).then(res => res.json());
+        )
 
     const data = await response.json();
 
