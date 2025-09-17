@@ -27,9 +27,45 @@ export default async function handler(req, res) {
     console.log("prompt:", body.promptText);
     console.log("duration:", body.duration);
     console.log("apikey", body.apikey);
+    const apiKey = body.apikey;
+    const promptImage = body.promptImage;
+    const promptText = body.promptText;
+    const duration = body.duration;
+    const ratio = body.ratio;
 
-    // Simple validation
-    if (!body) return res.status(400).json({ error: "No data received" });
+    try {
+        const result = await fetch(
+            "https://api.dev.runwayml.com/v1/image_to_video",
+            {
+                method: "POST",
+                headers: {
+                "Authorization": `Bearer ${apikey}`,
+                "X-Runway-Version": "2024-11-06",
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                "promptImage": promptImage,
+                "seed": 4294967295,
+                "model": "gen4_turbo",
+                "promptText": promptText,
+                "duration": duration,
+                "ratio": ratio,
+                "contentModeration": {
+                    "publicFigureThreshold": "auto"
+                }
+                }),
+            },
+            ).then(res => res.json())
+            .then(data => {
+                console.log(data);
+            }
+        );
+    } catch (err) {
+        console.log("OOPSY");
+        console.log(err);
+    }
+    
+
 
     // Respond by reiterating the received data
     res.setHeader("Access-Control-Allow-Origin", "*");
