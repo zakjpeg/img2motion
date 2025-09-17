@@ -24,8 +24,9 @@ export default async function handler(req, res) {
   try {
     const body = req.body;
 
-    // Optional: log for debugging
-    console.log("Received body:", body);
+    console.log("prompt:", body.promptText);
+    console.log("duration:", body.duration);
+    console.log("apikey", body.apikey);
 
     // Simple validation
     if (!body) return res.status(400).json({ error: "No data received" });

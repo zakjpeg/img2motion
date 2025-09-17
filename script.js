@@ -111,7 +111,7 @@ btnGenerate.addEventListener('click', async () => {
                         "promptText": promptText,
                         "duration": secondsInput,
                         "ratio": "720:1280",
-                        "apiKey": apiKey,
+                        "apikey": apiKey,
                         "contentModeration": {
                             "publicFigureThreshold": "auto"
                         }
